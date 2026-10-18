@@ -1,0 +1,245 @@
+/* Design/checkout.css - Checkout Page Styles */
+
+.checkout-container {
+    padding: 40px 10%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.checkout-layout {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 40px;
+    align-items: start;
+    margin-top: 25px;
+}
+
+.checkout-step {
+    background: white;
+    border-radius: var(--radius-lg);
+    border: 1px solid #eee;
+    padding: 30px;
+    margin-bottom: 25px;
+    box-shadow: var(--shadow-soft);
+}
+
+.step-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.step-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--primary-orange);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.step-header h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: #111;
+}
+
+.form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.delivery-options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.delivery-option-card {
+    border: 2px solid #eee;
+    border-radius: var(--radius-md);
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.delivery-option-card:hover {
+    border-color: #ddd;
+}
+
+.delivery-option-card.active {
+    border-color: var(--primary-orange);
+    background: #fff8f5;
+}
+
+.payment-methods-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.payment-tab {
+    border: 2px solid #eee;
+    border-radius: var(--radius-md);
+    padding: 14px 10px;
+    text-align: center;
+    cursor: pointer;
+    background: white;
+    transition: all 0.2s;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #555;
+}
+
+.payment-tab.active {
+    border-color: var(--primary-orange);
+    background: #fff8f5;
+    color: var(--primary-orange);
+}
+
+.payment-panel {
+    display: none;
+    padding: 15px;
+    background: #fdfdfd;
+    border: 1px solid #eee;
+    border-radius: var(--radius-md);
+}
+
+.payment-panel.active {
+    display: block;
+}
+
+/* Order Summary Box */
+.order-summary-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    border: 1px solid #eee;
+    padding: 30px;
+    box-shadow: var(--shadow-soft);
+    position: sticky;
+    top: 90px;
+}
+
+.order-summary-card h3 {
+    margin: 0 0 20px 0;
+    font-size: 1.3rem;
+}
+
+.summary-items-list {
+    max-height: 280px;
+    overflow-y: auto;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.summary-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+}
+
+.summary-item-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.summary-item-info img {
+    width: 42px;
+    height: 42px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.coupon-box {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.coupon-box input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.coupon-box button {
+    padding: 0 20px;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.coupon-box button:hover {
+    background: #111;
+}
+
+.calculation-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.calc-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.calc-row.total-price-row {
+    border-top: 2px solid #eee;
+    padding-top: 15px;
+    color: #111;
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.btn-place-order {
+    width: 100%;
+    padding: 16px;
+    background: var(--primary-orange);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    box-shadow: 0 4px 15px rgba(179, 48, 5, 0.3);
+}
+
+.btn-place-order:hover {
+    background: #992804;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 900px) {
+    .checkout-layout {
+        grid-template-columns: 1fr;
+    }
+    .payment-methods-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}

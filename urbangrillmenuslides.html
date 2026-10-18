@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sides & Appetizers | The Urban Grill | CraveExpress</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Design/design1.css">
+    <link rel="stylesheet" href="Design/design3.css">
+    <link rel="stylesheet" href="Design/common.css">
+</head>
+<body>
+
+    <nav>
+        <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">CraveExpress</a></div>
+        <div class="nav-links">
+            <a href="index.html">Offers</a>
+            <a href="restaurants.html" class="active">Restaurants</a>
+            <a href="orders.html">Orders</a>
+            <a href="help.html">Help</a>
+            <div class="nav-search">
+                <input type="text" placeholder="Search sides & appetizers...">
+            </div>
+            <a href="#" class="cart-icon" id="cart-icon-btn" title="View Cart">🛒 <span id="cart-count">0</span></a>
+            <a href="profile_settings.html" class="profile-icon" title="Account">👤</a>
+        </div>
+    </nav>
+
+    <div class="category-tabs">
+        <button onclick="window.location.href='urbangrillmenu.html'">Burgers & Mains</button>
+        <button class="active">Sides & Appetizers</button>
+        <button onclick="window.location.href='urbangrillmenu.html'">Drinks</button>
+        <button onclick="window.location.href='urbangrillmenu.html'">Desserts</button>
+        <button onclick="window.location.href='urbangrillmenu.html'">Vegan</button>
+        <button class="filters-btn" onclick="alert('Showing all chef crafted sides');">⠿ Filters</button>
+    </div>
+
+    <main class="menu-layout">
+        <section class="menu-content">
+            <div class="restaurant-banner">
+                <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=1000" alt="Urban Grill Banner">
+                <div class="banner-overlay">
+                    <h1>The Urban Grill</h1>
+                    <div class="banner-meta">
+                        <span class="rating">⭐ 4.8 (500+)</span>
+                        <span>20-30 min • Free Delivery • Gourmet Sides</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <div class="section-header">
+                    <h2>Sides & Appetizers</h2>
+                    <span class="best-seller">Perfect Pairings</span>
+                </div>
+                
+                <!-- Side Item 1 -->
+                <div class="menu-item">
+                    <div class="item-details">
+                        <h3>Truffle Parmesan Fries</h3>
+                        <p>Hand-cut golden russet fries tossed in aromatic white truffle oil, aged parmesan, and fresh chopped parsley.</p>
+                        <span class="price">$6.50</span>
+                        <button class="add-btn">+</button>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=300" alt="Truffle Fries">
+                </div>
+
+                <!-- Side Item 2 -->
+                <div class="menu-item">
+                    <div class="item-details">
+                        <h3>Crispy Beer-Battered Onion Rings</h3>
+                        <p>Beer-battered jumbo Vidalia onion rings fried until golden crispy, served with smoky chipotle mayo.</p>
+                        <span class="price">$5.99</span>
+                        <button class="add-btn">+</button>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1639024471283-035188835118?w=300" alt="Onion Rings">
+                </div>
+
+                <!-- Side Item 3 -->
+                <div class="menu-item">
+                    <div class="item-details">
+                        <h3>Loaded Sweet Potato Wedges</h3>
+                        <p>Roasted wedges topped with crumbled Greek feta, toasted pumpkin seeds, and zesty cilantro lime crema.</p>
+                        <span class="price">$7.25</span>
+                        <button class="add-btn">+</button>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1596097635121-14b63b7a0c19?w=300" alt="Sweet Potato Wedges">
+                </div>
+
+                <!-- Side Item 4 -->
+                <div class="menu-item">
+                    <div class="item-details">
+                        <h3>Smoked Gouda Mac & Cheese Bites</h3>
+                        <p>Crispy panko-crusted morsels of creamy four-cheese macaroni, served with spicy tomato bacon jam.</p>
+                        <span class="price">$7.75</span>
+                        <button class="add-btn">+</button>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=300" alt="Mac and Cheese">
+                </div>
+
+                <!-- Side Item 5 -->
+                <div class="menu-item">
+                    <div class="item-details">
+                        <h3>Tangy Apple Cider Slaw</h3>
+                        <p>Shredded red and green cabbage, crisp Granny Smith apples, carrots in a light tangy honey cider vinaigrette.</p>
+                        <span class="price">$4.50</span>
+                        <button class="add-btn">+</button>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1625944230945-1b7dd3b949ab?w=300" alt="Coleslaw">
+                </div>
+            </div>
+        </section>
+
+        <!-- Sidebar -->
+        <aside class="order-sidebar">
+            <div class="sidebar-card">
+                <h3>Your Order <span class="order-count" id="sidebar-count">0</span></h3>
+                <div class="order-items" id="cart-items-container"></div>
+                <div class="order-summary">
+                    <div class="summary-line"><span>Subtotal</span><span id="subtotal">$0.00</span></div>
+                    <div class="summary-line"><span>Delivery Fee</span><span class="free-text">FREE</span></div>
+                    <div class="summary-line total"><span>Total</span><span id="total-price">$0.00</span></div>
+                </div>
+                <button class="checkout-btn">Go to Checkout →</button>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Complete Site Footer -->
+    <footer class="crave-footer">
+        <div class="footer-top">
+            <div class="footer-col">
+                <h4 style="color: var(--accent-red); font-weight: 800; font-size: 1.4rem;">CraveExpress</h4>
+                <p>Satisfying your deepest cravings with fast, reliable, and delightful food delivery from the finest kitchens in the city.</p>
+                <div class="footer-socials">
+                    <a href="#" class="social-circle">📘</a>
+                    <a href="#" class="social-circle">📸</a>
+                    <a href="#" class="social-circle">🐦</a>
+                    <a href="#" class="social-circle">▶️</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home / Offers</a></li>
+                    <li><a href="restaurants.html">Explore Restaurants</a></li>
+                    <li><a href="orders.html">Track Orders</a></li>
+                    <li><a href="profile_settings.html">Account Settings</a></li>
+                    <li><a href="help.html">Help Center</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>For Partners</h4>
+                <ul>
+                    <li><a href="partner.html">Become a Restaurant Partner</a></li>
+                    <li><a href="partner.html#driver">Deliver with CraveExpress</a></li>
+                    <li><a href="partner.html#enterprise">Corporate Catering</a></li>
+                    <li><a href="login.html">Partner Login</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Stay in the Crave Loop</h4>
+                <p>Receive exclusive vouchers, weekly chef specials, and flash sales.</p>
+                <form class="footer-newsletter" onsubmit="event.preventDefault(); alert('Subscribed! Check your inbox for your 15% discount code.');">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 CraveExpress Inc. All rights reserved.</div>
+            <div class="footer-bottom-links">
+                <a href="help.html#privacy">Privacy Policy</a>
+                <a href="help.html#terms">Terms of Service</a>
+                <a href="help.html#cookies">Cookie Policy</a>
+                <a href="help.html">Security</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Universal Logic Scripts -->
+    <script src="JavaScript/cart.js"></script>
+    <script src="JavaScript/control2.js"></script>
+</body>
+</html>

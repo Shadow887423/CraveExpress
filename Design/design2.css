@@ -1,0 +1,231 @@
+/* Layout for the Restaurant Page */
+.restaurant-container {
+    display: flex;
+    padding: 40px 10%; /* Increased to 10% to match landing page consistency */
+    gap: 40px;
+}
+
+/* Sidebar */
+.filters-sidebar {
+    width: 250px;
+    flex-shrink: 0;
+}
+
+.filter-group {
+    margin-bottom: 30px;
+}
+
+.filter-group h4 {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: #888;
+    margin-bottom: 15px;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+/* Price Buttons */
+.price-options {
+    display: flex;
+    gap: 5px;
+}
+
+.price-options button {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.price-options button.selected {
+    background: var(--primary-orange);
+    color: white;
+    border-color: var(--primary-orange);
+}
+
+/* Restaurant Grid Layout */
+.restaurant-list { 
+    flex: 1; 
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.restaurant-grid {
+    display: grid;
+    /* Forces columns and prevents single-item stretching seen in image_13cab5.png */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+    gap: 25px;
+    align-items: start;
+}
+
+/* Restaurant Card & Links */
+.res-card {
+    border-radius: 15px;
+    overflow: hidden;
+    background: white;
+    transition: transform 0.3s ease;
+    border: 1px solid #eee;
+}
+
+.res-card:hover { 
+    transform: translateY(-5px); 
+}
+
+/* Resetting default link behavior for the card */
+.res-card a {
+    text-decoration: none;
+    color: inherit; 
+}
+
+.res-card a:visited {
+    color: inherit; 
+}
+
+/* Fixed Image Container */
+.res-image { 
+    position: relative; 
+    height: 200px; /* Fixed height for the container */
+    width: 100%;
+    overflow: hidden;
+}
+
+.res-image a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.res-image img { 
+    width: 100%; 
+    height: 100%; /* Fills the 200px parent exactly */
+    object-fit: cover; 
+    display: block; 
+}
+
+/* Badges */
+.rating-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.8rem;
+    z-index: 2;
+}
+
+.featured-label {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: var(--primary-orange);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    z-index: 2;
+}
+
+/* Info Section */
+.res-info { 
+    padding: 20px; 
+}
+
+.res-title { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.res-title h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.res-info p { 
+    color: #666; 
+    font-size: 0.9rem; 
+    margin: 5px 0 15px; 
+}
+
+.res-meta { 
+    display: flex; 
+    gap: 20px; 
+    font-size: 0.85rem; 
+    color: #444; 
+}
+
+/* Promo Box */
+.promo-card-mini {
+    background: #FFF9E6;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 40px;
+    border: 1px solid #FFEBB3;
+}
+
+.claim-btn {
+    background: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    width: 100%;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.claim-btn:hover {
+    background: #333;
+}
+
+/* List View Style Support */
+.restaurant-grid.list-view {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.restaurant-grid.list-view .res-card {
+    display: flex;
+    flex-direction: row;
+    height: 160px;
+}
+
+.restaurant-grid.list-view .res-image {
+    width: 240px;
+    height: 100%;
+    flex-shrink: 0;
+}
+
+.restaurant-grid.list-view .res-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .restaurant-grid.list-view .res-card {
+        flex-direction: column;
+        height: auto;
+    }
+    .restaurant-grid.list-view .res-image {
+        width: 100%;
+        height: 180px;
+    }
+}

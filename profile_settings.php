@@ -1,0 +1,319 @@
+<?php
+// 1. Start session
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+require_once __DIR__ . '/Backend/db_connect.php';
+
+// Safe User Data Fallbacks for testing
+$userId = $_SESSION['user_id'] ?? 1;
+$name   = $_SESSION['user_name'] ?? 'John Doe';
+$email  = $_SESSION['user_email'] ?? 'john@example.com';
+$phone  = $_SESSION['user_phone'] ?? '+63 912 345 6789';
+
+// 2. Fetch User Data from SSMS if connected
+if ($conn !== false && isset($_SESSION['user_id'])) {
+    $sql = "SELECT * FROM [Users] WHERE [UserID] = ? OR [ID] = ?";
+    $params = array($userId, $userId);
+    $stmt = sqlsrv_query($conn, $sql, $params);
+
+    if ($stmt !== false) {
+        $user = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+        if ($user) {
+            $name  = $user['FullName'] ?? $name;
+            $email = $user['Email'] ?? $email;
+            $phone = $user['PhoneNumber'] ?? $phone;
+        }
+        sqlsrv_free_stmt($stmt);
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings | CraveExpress</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Design/design1.css">
+    <link rel="stylesheet" href="Design/common.css">
+    <link rel="stylesheet" href="Design/profile_settings.css">
+</head>
+<body class="settings-body" style="background-color: #fcfcfc;">
+
+    <nav>
+        <div class="logo"><a href="index.php" style="text-decoration: none; color: inherit;">CraveExpress</a></div>
+        <div class="nav-links">
+            <a href="index.php">Offers</a>
+            <a href="restaurants.php">Restaurants</a>
+            <a href="orders.php">Orders</a>
+            <a href="help.php">Help</a>
+            <a href="#" class="cart-icon" id="cart-icon-btn" title="View Cart">🛒 <span id="cart-count">0</span></a>
+            <a href="profile_settings.php" class="profile-icon active" title="<?php echo htmlspecialchars($name); ?>">👤</a>
+        </div>
+    </nav>
+
+    <main class="settings-container" style="padding: 40px 10%; max-width: 1200px; margin: 0 auto;">
+        <header class="settings-header" style="margin-bottom: 30px;">
+            <h1 style="font-size: 2rem; margin: 0 0 6px 0;">Account & Preferences</h1>
+            <p style="color: #666; margin: 0;">Manage your profile details, security settings, saved addresses, and payment methods.</p>
+        </header>
+
+        <div class="settings-layout">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="side-nav">
+                    <a href="#profile" class="side-item active" data-tab="profile">👤 Profile</a>
+                    <a href="#security" class="side-item" data-tab="security">🛡️ Security</a>
+                    <a href="#addresses" class="side-item" data-tab="addresses">📍 Addresses</a>
+                    <a href="#payments" class="side-item" data-tab="payments">💳 Payment Methods</a>
+                    <hr class="sidebar-divider" style="margin: 15px 0; border: none; border-top: 1px solid #eee;">
+                    <a href="Backend/logout.php" class="side-item logout" onclick="return confirm('Are you sure you want to log out?');">📤 Log Out</a>
+                </nav>
+            </aside>
+
+            <!-- Main Content Area -->
+            <section class="content-cards-container">
+                
+                <!-- TAB 1: PROFILE INFO -->
+                <div id="panel-profile" class="settings-panel content-card">
+                    <h2>Profile Information</h2>
+                    <p style="color: #666; font-size: 0.9rem; margin-bottom: 25px;">Update your personal info and public avatar.</p>
+                    
+                    <div class="photo-upload-section" style="display: flex; align-items: center; gap: 25px; margin-bottom: 30px; padding-bottom: 25px; border-bottom: 1px solid #eee;">
+                        <div class="avatar-large" style="position: relative;">
+                            <img id="user-avatar-img" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150" alt="User Photo" style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 2px solid #ddd;">
+                            <input type="file" id="photo-file-input" style="display: none;" accept="image/*">
+                        </div>
+                        <div class="photo-text">
+                            <h3 style="margin: 0 0 5px 0; font-size: 1.1rem;">Profile Photo</h3>
+                            <p style="margin: 0 0 12px 0; color: #777; font-size: 0.85rem;">This will be displayed on your deliveries and receipts.</p>
+                            <div class="photo-btns" style="display: flex; gap: 10px;">
+                                <button type="button" class="btn-gray" id="btn-upload-photo" style="padding: 8px 16px; border: 1px solid #ccc; background: white; border-radius: 6px; cursor: pointer; font-weight: 600;">Upload New</button>
+                                <button type="button" class="btn-text-red" id="btn-remove-photo" style="padding: 8px 16px; border: none; background: none; color: #e74c3c; cursor: pointer; font-weight: 600;">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="settings-form" action="Backend/update_profile.php" method="POST">
+                        <input type="hidden" name="action" value="update_profile">
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label>Full Name</label>
+                                <input type="text" name="full_name" value="<?php echo htmlspecialchars($name); ?>" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Phone Number</label>
+                                <input type="text" name="phone_number" value="<?php echo htmlspecialchars($phone); ?>" required>
+                            </div>
+                        </div>
+
+                        <div class="input-group full-width" style="margin-bottom: 25px;">
+                            <label>Email Address</label>
+                            <div class="input-with-icon" style="position: relative;">
+                                <input type="email" value="<?php echo htmlspecialchars($email); ?>" disabled style="background: #f1f2f6; cursor: not-allowed; width: 100%;">
+                                <span class="check-icon" style="position: absolute; right: 15px; top: 12px; color: #27ae60; font-weight: bold;">✔ Verified</span>
+                            </div>
+                            <small style="color: #888; margin-top: 5px;">Your verified email address is linked to your CraveExpress account security.</small>
+                        </div>
+
+                        <div class="form-footer" style="display: flex; gap: 12px;">
+                            <button type="submit" class="btn-primary" style="background: var(--primary-orange); color: white; border-radius: 8px;">Save Changes</button>
+                            <button type="button" class="btn-secondary" onclick="window.location.href='index.php'" style="background: #333; color: white; border-radius: 8px;">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- TAB 2: SECURITY & PASSWORD -->
+                <div id="panel-security" class="settings-panel content-card" style="display: none;">
+                    <h2>Security & Password</h2>
+                    <p style="color: #666; font-size: 0.9rem; margin-bottom: 25px;">Ensure your account remains safe with a strong password.</p>
+
+                    <form action="Backend/update_profile.php" method="POST">
+                        <input type="hidden" name="action" value="update_security">
+                        <div class="input-group" style="margin-bottom: 18px;">
+                            <label>Current Password</label>
+                            <input type="password" name="current_password" placeholder="••••••••" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label>New Password</label>
+                                <input type="password" name="new_password" placeholder="At least 6 characters" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Confirm New Password</label>
+                                <input type="password" name="confirm_password" placeholder="Re-enter new password" required>
+                            </div>
+                        </div>
+
+                        <div style="margin: 25px 0; padding: 15px; background: #fffbf0; border: 1px solid #ffeeba; border-radius: 8px;">
+                            <strong style="color: #856404; display: block; margin-bottom: 4px;">Active Session</strong>
+                            <small style="color: #666;">You are currently logged in on this browser (Windows • Chrome/Edge). All your transmissions are encrypted.</small>
+                        </div>
+
+                        <button type="submit" class="btn-primary" style="background: var(--primary-orange); color: white; border-radius: 8px;">Update Password</button>
+                    </form>
+                </div>
+
+                <!-- TAB 3: SAVED ADDRESSES -->
+                <div id="panel-addresses" class="settings-panel content-card" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <div>
+                            <h2 style="margin: 0 0 5px 0;">Saved Delivery Addresses</h2>
+                            <p style="color: #666; font-size: 0.9rem; margin: 0;">Quickly select where you want your food delivered.</p>
+                        </div>
+                        <button type="button" onclick="document.getElementById('add-address-form').style.display='block'" class="btn-primary" style="background: var(--primary-orange); color: white; padding: 8px 16px; border-radius: 8px; font-size: 0.85rem;">+ Add Address</button>
+                    </div>
+
+                    <!-- Addresses List -->
+                    <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px;">
+                        <div style="border: 2px solid var(--primary-orange); border-radius: 12px; padding: 16px; background: #fffcf9; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
+                                    <strong>🏠 Home (Primary)</strong>
+                                    <span style="background: var(--primary-orange); color: white; font-size: 0.7rem; font-weight: bold; padding: 2px 8px; border-radius: 10px;">DEFAULT</span>
+                                </div>
+                                <p style="margin: 0; color: #555; font-size: 0.9rem;">123 Ayala Avenue, Unit 4B, Tower 2, Makati City</p>
+                                <small style="color: #888;">Drop-off note: Leave at front lobby concierge</small>
+                            </div>
+                            <div>
+                                <button style="border: 1px solid #ddd; background: white; padding: 6px 12px; border-radius: 6px; cursor: pointer;" onclick="alert('Editing primary address');">Edit</button>
+                            </div>
+                        </div>
+
+                        <div style="border: 1px solid #eee; border-radius: 12px; padding: 16px; background: white; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
+                                    <strong>🏢 Office</strong>
+                                </div>
+                                <p style="margin: 0; color: #555; font-size: 0.9rem;">BGC High Street, 11th Floor Tech Hub, Taguig City</p>
+                                <small style="color: #888;">Drop-off note: Call upon arrival at building entrance</small>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button style="border: 1px solid #ddd; background: white; padding: 6px 12px; border-radius: 6px; cursor: pointer;" onclick="alert('Set as default address!');">Set Default</button>
+                                <button style="border: 1px solid #ddd; background: white; padding: 6px 12px; border-radius: 6px; cursor: pointer; color: #e74c3c;" onclick="confirm('Delete this address?');">✕</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- New Address Form (Hidden by default) -->
+                    <div id="add-address-form" style="display: none; padding: 20px; background: #f9f9f9; border-radius: 12px; border: 1px solid #eee;">
+                        <h3 style="margin: 0 0 15px 0; font-size: 1.1rem;">Add New Address</h3>
+                        <form action="Backend/update_profile.php" method="POST">
+                            <input type="hidden" name="action" value="save_address">
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label>Label</label>
+                                    <input type="text" name="address_label" placeholder="e.g. Gym, Parents' House" required>
+                                </div>
+                                <div class="input-group">
+                                    <label>Full Address</label>
+                                    <input type="text" name="address_text" placeholder="Street, Unit, City, Postal Code" required>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                                <button type="submit" class="btn-primary" style="background: var(--primary-orange); color: white; border-radius: 6px;">Save Address</button>
+                                <button type="button" onclick="document.getElementById('add-address-form').style.display='none'" class="btn-secondary" style="border-radius: 6px;">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- TAB 4: PAYMENT METHODS -->
+                <div id="panel-payments" class="settings-panel content-card" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <div>
+                            <h2 style="margin: 0 0 5px 0;">Payment Methods</h2>
+                            <p style="color: #666; font-size: 0.9rem; margin: 0;">Manage your cards and digital wallets for quick checkout.</p>
+                        </div>
+                        <button type="button" onclick="alert('Card onboarding modal opened.');" class="btn-primary" style="background: var(--primary-orange); color: white; padding: 8px 16px; border-radius: 8px; font-size: 0.85rem;">+ Add Payment Method</button>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="border: 2px solid var(--primary-orange); border-radius: 12px; padding: 18px; background: #fffcf9; display: flex; justify-content: space-between; align-items: center;">
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <span style="font-size: 2rem;">💳</span>
+                                <div>
+                                    <strong>Visa ending in 4242</strong>
+                                    <small style="display: block; color: #888;">Expires 08/28 • Default for food delivery</small>
+                                </div>
+                            </div>
+                            <span style="background: var(--primary-orange); color: white; font-size: 0.75rem; font-weight: bold; padding: 3px 10px; border-radius: 12px;">DEFAULT</span>
+                        </div>
+
+                        <div style="border: 1px solid #eee; border-radius: 12px; padding: 18px; background: white; display: flex; justify-content: space-between; align-items: center;">
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <span style="font-size: 2rem;">📱</span>
+                                <div>
+                                    <strong>GCash Mobile Wallet</strong>
+                                    <small style="display: block; color: #888;">Linked to <?php echo htmlspecialchars($phone); ?></small>
+                                </div>
+                            </div>
+                            <button style="border: 1px solid #ddd; background: white; padding: 6px 12px; border-radius: 6px; cursor: pointer;" onclick="alert('Set as default payment!');">Set Default</button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </main>
+
+    <!-- Complete Site Footer -->
+    <footer class="crave-footer">
+        <div class="footer-top">
+            <div class="footer-col">
+                <h4 style="color: var(--accent-red); font-weight: 800; font-size: 1.4rem;">CraveExpress</h4>
+                <p>Satisfying your deepest cravings with fast, reliable, and delightful food delivery from the finest kitchens in the city.</p>
+                <div class="footer-socials">
+                    <a href="#" class="social-circle">📘</a>
+                    <a href="#" class="social-circle">📸</a>
+                    <a href="#" class="social-circle">🐦</a>
+                    <a href="#" class="social-circle">▶️</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.php">Home / Offers</a></li>
+                    <li><a href="restaurants.php">Explore Restaurants</a></li>
+                    <li><a href="orders.php">Track Orders</a></li>
+                    <li><a href="profile_settings.php">Account Settings</a></li>
+                    <li><a href="help.php">Help Center</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>For Partners</h4>
+                <ul>
+                    <li><a href="partner.php">Become a Restaurant Partner</a></li>
+                    <li><a href="partner.php#driver">Deliver with CraveExpress</a></li>
+                    <li><a href="partner.php#enterprise">Corporate Catering</a></li>
+                    <li><a href="login.html">Partner Login</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Stay in the Crave Loop</h4>
+                <p>Receive exclusive vouchers, weekly chef specials, and flash sales.</p>
+                <form class="footer-newsletter" onsubmit="event.preventDefault(); alert('Subscribed! Check your inbox for your 15% discount code.');">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 CraveExpress Inc. All rights reserved.</div>
+            <div class="footer-bottom-links">
+                <a href="help.php#privacy">Privacy Policy</a>
+                <a href="help.php#terms">Terms of Service</a>
+                <a href="help.php#cookies">Cookie Policy</a>
+                <a href="help.php">Security</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Universal Logic Scripts -->
+    <script src="JavaScript/cart.js"></script>
+    <script src="JavaScript/profile_settings.js"></script>
+</body>
+</html>

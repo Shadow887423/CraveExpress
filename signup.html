@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | CraveExpress</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Project CSS Files -->
+    <link rel="stylesheet" href="Design/design1.css">
+    <link rel="stylesheet" href="Design/signup.css">
+    <link rel="stylesheet" href="Design/common.css">
+</head>
+<body>
+
+    <header class="signup-header" style="padding: 1.5rem 5%;">
+        <div class="logo"><a href="index.php" style="text-decoration: none; color: inherit;">CraveExpress</a></div>
+    </header>
+
+    <main class="split-container">
+        <!-- Left Side: Marketing Visual -->
+        <section class="visual-side">
+            <div class="overlay"></div>
+            <div class="visual-content">
+                <h1>Feed Your Soul, Instantly.</h1>
+                <p>Join the exclusive community of urban foodies and experience the fastest, most flavorful delivery in the city.</p>
+                <div class="carousel-dots" style="display: flex; gap: 8px; justify-content: center; margin-top: 20px;">
+                    <span class="dot active" style="width: 10px; height: 10px; background: white; border-radius: 50%;"></span>
+                    <span class="dot" style="width: 10px; height: 10px; background: rgba(255,255,255,0.4); border-radius: 50%;"></span>
+                    <span class="dot" style="width: 10px; height: 10px; background: rgba(255,255,255,0.4); border-radius: 50%;"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Side: Sign Up Form -->
+        <section class="form-side">
+            <div class="form-wrapper">
+                <h2>Create your account</h2>
+                <p class="subtitle">Start your culinary journey with CraveExpress today.</p>
+
+                <!-- Social Authentication Buttons -->
+                <div class="social-login">
+                    <button type="button" class="social-btn" onclick="quickFill('Google')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" width="20">
+                    </button>
+                    <button type="button" class="social-btn" onclick="quickFill('Apple')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" width="20">
+                    </button>
+                    <button type="button" class="social-btn" onclick="quickFill('Facebook')">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/0/04/Facebook_f_logo_%282021%29.svg" alt="Facebook" width="20">
+                    </button>
+                </div>
+
+                <div class="divider">
+                    <span>OR CONTINUE WITH EMAIL</span>
+                </div>
+
+                <!-- FORM START -->
+                <form id="registrationForm" action="Backend/signup.php" method="POST" class="signup-form">
+                    <div class="input-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" name="fullName" placeholder="John Doe" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="name@example.com" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+63 9XX XXX XXXX" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="password" name="password" placeholder="••••••••" required>
+                            <span class="toggle-pass" id="eyeIcon">👁</span>
+                        </div>
+                        <small style="color: #888; margin-top: 4px; display: block;">Must be at least 6 characters long.</small>
+                    </div>
+
+                    <button type="submit" class="create-btn">Create Account →</button>
+                </form>
+                <!-- FORM END -->
+                
+                <p style="text-align: center; margin-top: 20px; font-size: 0.9rem; color: #666;">
+                    Already have an account? <a href="login.html" style="color: var(--primary-orange); font-weight: 700; text-decoration: none;">Log In</a>
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="legal-footer">
+        <p>© 2026 CraveExpress Inc. All rights reserved.</p>
+        <div class="legal-links">
+            <a href="help.php#terms">Terms of Service</a>
+            <a href="help.php#privacy">Privacy Policy</a>
+            <a href="partner.php">Partner With Us</a>
+            <a href="help.php">Help Center</a>
+        </div>
+    </footer>
+
+    <!-- JS Logic -->
+    <script src="JavaScript/signup.js"></script>
+    <script>
+        function quickFill(provider) {
+            document.getElementById('fullName').value = `${provider} User`;
+            document.getElementById('email').value = `${provider.toLowerCase()}.user@example.com`;
+            document.getElementById('phone').value = '+63 912 345 6789';
+            document.getElementById('password').value = 'securePass123!';
+            alert(`Prefilled details with ${provider}! Click 'Create Account →' to register.`);
+        }
+    </script>
+</body>
+</html>

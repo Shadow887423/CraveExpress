@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CraveExpress - Welcome Back</title>
+    <!-- Link to CSS files -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Design/login.css"> 
+    <link rel="stylesheet" href="Design/common.css">
+</head>
+<body>
+    <div class="login-container">
+        <!-- Left Side: Visual/Branding -->
+        <div class="login-image-section">
+            <h1 class="brand-logo"><a href="index.php" style="color: white; text-decoration: none; font-weight: 800;">CraveExpress</a></h1>
+            <p style="margin-top: auto; font-size: 1.1rem; opacity: 0.9;">“The best food in the city, delivered right to your couch in 20 minutes.”</p>
+        </div>
+
+        <!-- Right Side: Login Form -->
+        <div class="login-form-section">
+            <h2>Welcome Back</h2>
+            <p>Login to your account to continue your culinary journey.</p>
+
+            <!-- Social Login Icons -->
+            <div class="social-login">
+                <button type="button" class="social-btn" onclick="quickSocialLogin('Google')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" width="20">
+                </button>
+                <button type="button" class="social-btn" onclick="quickSocialLogin('Apple')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" width="20">
+                </button>
+                <button type="button" class="social-btn" onclick="quickSocialLogin('Facebook')">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/0/04/Facebook_f_logo_%282021%29.svg" alt="Facebook" width="20">
+                </button>
+            </div>
+
+            <div class="divider">
+                <span>OR CONTINUE WITH EMAIL</span>
+            </div>
+
+            <!-- THE CORE FORM: Connected to Backend/login_process.php -->
+            <form id="loginForm" class="login-form">
+                <div class="input-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" name="email" placeholder="name@example.com" value="demo@craveexpress.com" required>
+                </div>
+
+                <div class="input-group">
+                    <div class="label-row">
+                        <label for="loginPassword">Password</label>
+                        <a href="#" class="forgot-link" id="forgotPasswordBtn">Forgot Password?</a>
+                    </div>
+                    <div class="password-wrapper">
+                        <input type="password" id="loginPassword" name="password" placeholder="••••••••" value="password123" required>
+                        <!-- Password Toggle Icon -->
+                        <span class="toggle-pass" id="loginEyeIcon">👁</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="login-btn">Log In →</button>
+            </form>
+
+            <div style="background: #fdf6e2; border: 1px solid #fae19c; border-radius: 8px; padding: 10px 14px; margin-top: 20px; font-size: 0.82rem; color: #7d5a00;">
+                💡 <strong>Demo Credentials:</strong> <code>demo@craveexpress.com</code> / <code>password123</code> (or sign up with a new account).
+            </div>
+
+            <p class="footer-text">
+                Don't have an account? <a href="signup.html">Sign Up</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="main-footer">
+        <div class="footer-left">
+            <p><strong>CraveExpress</strong></p>
+            <small>© 2026 CraveExpress Inc. All rights reserved.</small>
+        </div>
+        <div class="footer-right">
+            <a href="help.php#privacy">Privacy Policy</a>
+            <a href="help.php#terms">Terms of Service</a>
+            <a href="partner.php">Partner with Us</a>
+            <a href="help.php">Help & Contact</a>
+        </div>
+    </footer>
+
+    <!-- Link to JavaScript files -->
+    <script src="JavaScript/login.js"></script>
+    <script>
+        function quickSocialLogin(provider) {
+            document.getElementById('loginEmail').value = `${provider.toLowerCase()}.user@craveexpress.com`;
+            document.getElementById('loginPassword').value = 'password123';
+            alert(`Connected with ${provider}! Click 'Log In →' to proceed.`);
+        }
+
+        const forgotBtn = document.getElementById('forgotPasswordBtn');
+        if (forgotBtn) {
+            forgotBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const email = prompt('Enter your CraveExpress account email address to receive password reset instructions:', document.getElementById('loginEmail').value);
+                if (email) {
+                    alert(`Password reset instructions have been dispatched to ${email}. Please check your inbox!`);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

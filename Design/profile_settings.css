@@ -1,0 +1,87 @@
+/* Layout Container */
+.settings-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr; /* Sidebar fixed, content expands[cite: 2] */
+    gap: 40px;
+    margin-top: 20px;
+}
+
+/* Sidebar Styles */
+.side-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.side-item {
+    padding: 12px 20px;
+    text-decoration: none;
+    color: #444;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.side-item.active {
+    background-color: #B33005; /* Primary Orange[cite: 2] */
+    color: white;
+}
+
+.side-item.logout {
+    color: #E31818; /* Accent Red[cite: 2] */
+}
+
+/* Content Card[cite: 2] */
+.content-card {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid #eee;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #666;
+}
+
+.input-group input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 1rem;
+    background: #fafafa;
+}
+
+.btn-primary {
+    background: #B33005;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.btn-secondary {
+    background: #000;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+}

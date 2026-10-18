@@ -1,0 +1,117 @@
+/* Layout Splits */
+.split-container {
+    display: flex;
+    min-height: calc(100vh - 120px);
+}
+
+.visual-side {
+    flex: 1;
+    background: url('https://images.unsplash.com/photo-1544025162-d76694265947?w=1200') no-repeat center center;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 60px;
+}
+
+.visual-side .overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(90, 30, 0, 0.4); /* Matches the warm tone in image_4bb840.png */
+}
+
+.visual-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 500px;
+}
+
+.visual-content h1 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.1; }
+
+/* Form Side */
+.form-side {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: white;
+}
+
+.form-wrapper { width: 100%; max-width: 450px; }
+
+.form-wrapper h2 { font-size: 2rem; margin-bottom: 10px; }
+.subtitle { color: #666; margin-bottom: 30px; }
+
+/* Social Buttons */
+.social-login {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.social-btn {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* Form Styling */
+.input-group { margin-bottom: 20px; }
+.input-group label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.9rem; }
+
+.input-group input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background: #fafafa;
+    font-size: 1rem;
+}
+
+.password-wrapper { position: relative; }
+.toggle-pass { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; }
+
+.create-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--primary-orange); /* From design1.css */
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(186, 45, 0, 0.3);
+}
+
+.account-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--primary-orange); /* From design1.css */
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(186, 45, 0, 0.3);
+}
+
+/* Footer Styling */
+.legal-footer {
+    padding: 20px 5%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: #666;
+    border-top: 1px solid #eee;
+}
+
+.legal-links a { margin-left: 20px; color: #333; text-decoration: none; }

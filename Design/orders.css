@@ -1,0 +1,291 @@
+/* Design/orders.css - Order Tracking and History Styles */
+
+.orders-container {
+    padding: 40px 10%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.orders-tabs {
+    display: flex;
+    gap: 15px;
+    border-bottom: 2px solid #eee;
+    margin-bottom: 30px;
+}
+
+.orders-tab-btn {
+    padding: 12px 20px;
+    border: none;
+    background: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #777;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s;
+}
+
+.orders-tab-btn.active {
+    color: var(--primary-orange);
+}
+
+.orders-tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--primary-orange);
+    border-radius: 3px 3px 0 0;
+}
+
+/* Active Tracking Card */
+.tracking-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    border: 1px solid #eee;
+    padding: 30px;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 35px;
+}
+
+.tracking-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.eta-badge {
+    background: #fff0eb;
+    color: var(--primary-orange);
+    padding: 10px 18px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Status Stepper */
+.status-stepper {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin: 35px 20px 45px;
+}
+
+.status-stepper::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    right: 40px;
+    height: 4px;
+    background: #eee;
+    z-index: 1;
+}
+
+.status-step {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 120px;
+}
+
+.step-icon-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    transition: all 0.3s;
+}
+
+.status-step.completed .step-icon-circle {
+    background: #27ae60;
+    border-color: #27ae60;
+    color: white;
+}
+
+.status-step.current .step-icon-circle {
+    background: var(--primary-orange);
+    border-color: var(--primary-orange);
+    color: white;
+    box-shadow: 0 0 0 6px rgba(179, 48, 5, 0.15);
+    animation: pulseStep 1.8s infinite;
+}
+
+@keyframes pulseStep {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.status-step span {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #666;
+}
+
+.status-step.current span, .status-step.completed span {
+    color: #111;
+}
+
+/* Simulated Live Map */
+.live-map-container {
+    height: 260px;
+    background: #e5e9f0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #d8dee9;
+    margin-bottom: 25px;
+}
+
+.map-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.scooter-marker {
+    position: absolute;
+    font-size: 28px;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+    animation: driveScooter 8s linear infinite;
+}
+
+@keyframes driveScooter {
+    0% { top: 75%; left: 15%; transform: rotate(-15deg); }
+    30% { top: 50%; left: 35%; transform: rotate(10deg); }
+    60% { top: 35%; left: 60%; transform: rotate(-5deg); }
+    100% { top: 25%; left: 82%; transform: rotate(0deg); }
+}
+
+/* Courier Info Card */
+.courier-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9fa;
+    border-radius: var(--radius-md);
+    padding: 18px 24px;
+    margin-bottom: 25px;
+    border: 1px solid #eee;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.courier-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.courier-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.courier-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-courier-action {
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    text-decoration: none;
+    color: inherit;
+}
+
+.btn-courier-action:hover {
+    background: #eee;
+}
+
+/* History List */
+.history-item-card {
+    background: white;
+    border-radius: var(--radius-md);
+    border: 1px solid #eee;
+    padding: 22px 26px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    transition: transform 0.2s;
+}
+
+.history-item-card:hover {
+    transform: translateY(-2px);
+    border-color: #ddd;
+}
+
+.history-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.badge-delivered {
+    background: #e8f8f0;
+    color: #27ae60;
+}
+
+.btn-reorder {
+    padding: 8px 18px;
+    background: var(--primary-orange);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.btn-reorder:hover {
+    background: #992804;
+}
+
+@media (max-width: 768px) {
+    .status-stepper {
+        margin: 20px 0;
+    }
+    .status-step {
+        width: 70px;
+    }
+    .status-step span {
+        font-size: 0.75rem;
+    }
+    .step-icon-circle {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+}
